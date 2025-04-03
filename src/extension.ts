@@ -1,51 +1,27 @@
-"use strict";
+'use strict';
 
-import * as vscode from "vscode";
-import * as rangeMethods from "./rangeMethods";
-import * as utils from "./utils";
+import * as vscode from 'vscode';
+import {
+	textPastry1toX,
+	textPastry0toX,
+	textPastryAtoX,
+	textPastryRange,
+	textPastryWordList,
+	textPastryPaste,
+	textPastryUuid
+} from './commands';
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Extension "vscode-text-pastry" is now active!');
 
 	let disposables = [
-		vscode.commands.registerCommand("extension.textPastry.1toX", () =>
-			rangeMethods.range(rangeMethods.range_1toX)
-		),
-		vscode.commands.registerCommand("extension.textPastry.0toX", () =>
-			rangeMethods.range(rangeMethods.range_0toX)
-		),
-		vscode.commands.registerCommand("extension.textPastry.AtoX", () =>
-			rangeMethods.range(rangeMethods.range_AtoX)
-		),
-		vscode.commands.registerCommand("extension.textPastry.range", async () => {
-			try {
-				const range = await rangeMethods.promptRange();
-				return rangeMethods.range(rangeMethods.range_generic(range));
-			} catch (e) {
-				// Swallow errors
-			}
-		}),
-		vscode.commands.registerCommand(
-			"extension.textPastry.wordList",
-			async () => {
-				try {
-					const list = await rangeMethods.promptWordList();
-					return rangeMethods.range(list);
-				} catch (e) {
-					// Swallow errors
-				}
-			}
-		),
-
-		vscode.commands.registerCommand("extension.textPastry.paste", () =>
-			utils.getClipboardLines().then((lines) => {
-				return rangeMethods.range(lines);
-			})
-		),
-
-		vscode.commands.registerCommand("extension.textPastry.uuid", () =>
-			rangeMethods.range(rangeMethods.range_uuid)
-		),
+		vscode.commands.registerCommand('extension.textPastry.1toX', textPastry1toX),
+		vscode.commands.registerCommand('extension.textPastry.0toX', textPastry0toX),
+		vscode.commands.registerCommand('extension.textPastry.AtoX', textPastryAtoX),
+		vscode.commands.registerCommand('extension.textPastry.range', textPastryRange),
+		vscode.commands.registerCommand('extension.textPastry.wordList', textPastryWordList),
+		vscode.commands.registerCommand('extension.textPastry.paste', textPastryPaste),
+		vscode.commands.registerCommand('extension.textPastry.uuid', textPastryUuid)
 	];
 
 	context.subscriptions.push(...disposables);
