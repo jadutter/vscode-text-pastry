@@ -13,5 +13,6 @@
 	"[json]": {
 		"editor.useTabStops": false,
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+	},
+	"prettier.configPath": ".prettierrc.json"
 }
