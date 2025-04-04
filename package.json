@@ -67,17 +67,20 @@
     "esbuild-browser": "esbuild ./src/extension.ts --bundle --outfile=out/browser.js --external:vscode --format=cjs --platform=browser",
     "esbuild": "npm run esbuild-base -- --sourcemap",
     "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
-    "test-compile": "tsc -p ./"
+    "test-compile": "tsc -p ./",
+    "test-only": "mocha -u tdd --reporter spec  out/test/*.test.js",
+    "test-watch": "npm run test-compile -- --watch & npm run test-only -- --watch",
+    "test": "npm run test-compile && npm run test-only"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.48",
     "@types/node": "^6.14.13",
     "@types/uuid": "^2.0.32",
-    "@types/vscode": "^1.72.0",
     "esbuild": "^0.15.11",
     "mocha": "^10.0.0",
     "prettier": "2.7.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "vscode": "^1.1.37"
   },
   "dependencies": {
     "lodash.sortby": "^4.7.0",
