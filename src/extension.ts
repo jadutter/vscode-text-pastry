@@ -8,7 +8,8 @@ import {
 	textPastryRange,
 	textPastryWordList,
 	textPastryPaste,
-	textPastryUuid
+	textPastryUuid,
+	textPastryRangeN
 } from './commands';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -21,7 +22,8 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand('extension.textPastry.range', textPastryRange),
 		vscode.commands.registerCommand('extension.textPastry.wordList', textPastryWordList),
 		vscode.commands.registerCommand('extension.textPastry.paste', textPastryPaste),
-		vscode.commands.registerCommand('extension.textPastry.uuid', textPastryUuid)
+		vscode.commands.registerCommand('extension.textPastry.uuid', textPastryUuid),
+		vscode.commands.registerCommand('extension.textPastry.rangeN', textPastryRangeN)
 	];
 
 	context.subscriptions.push(...disposables);

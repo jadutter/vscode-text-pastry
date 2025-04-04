@@ -1,7 +1,7 @@
 import { getClipboardLines } from './utils';
 import * as rangeMethods from './rangeMethods';
 import type { TextPastryCommand } from './main';
-import { handleRange, promptRange, promptWordList } from './editorMethods';
+import { handleRange, handleRangeN, promptRange, promptRangeN, promptWordList } from './editorMethods';
 
 export const textPastry1toX: TextPastryCommand = () => handleRange(rangeMethods.range_1toX);
 export const textPastry0toX: TextPastryCommand = () => handleRange(rangeMethods.range_0toX);
@@ -31,3 +31,13 @@ export const textPastryPaste = () =>
 	});
 
 export const textPastryUuid: TextPastryCommand = () => handleRange(rangeMethods.range_uuid);
+
+export const textPastryRangeN: TextPastryCommand = async () => {
+	try {
+		const [start, step, padding] = await promptRangeN();
+		const list = rangeMethods.createRangeFactory(start, step, padding);
+		return handleRangeN(list);
+	} catch {
+		// Swallow errors
+	}
+};
