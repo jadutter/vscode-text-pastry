@@ -8,7 +8,9 @@ import * as assert from 'assert';
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
-import { range_generic, range_0toX, range_1toX, range_AtoX, range_uuid } from '../src/rangeMethods';
+import { range_generic, range_0toX, range_1toX, range_AtoX, range_uuid, parseRange } from '../src/rangeMethods';
+
+import { checkParseRangeThrows, checkParseWithSpacing, createAndCheckRange } from './utils';
 
 suite('Range Methods', () => {
 	// Defines a Mocha unit test
@@ -131,6 +133,109 @@ suite('Range Methods', () => {
 		test('each uuid is unique', () => {
 			const combined = [...uuids3, ...uuids5];
 			assert.strictEqual(combined.length, new Set(combined).size);
+		});
+	});
+	suite('parseRange', () => {
+		test('parses single integer', () => {
+			checkParseWithSpacing([42], [42, 1, 1]);
+		});
+		test('parses double integer', () => {
+			checkParseWithSpacing([17, 13], [17, 13, 1]);
+		});
+		test('parses triple integer', () => {
+			checkParseWithSpacing([5, 10, 4], [5, 10, 4]);
+		});
+		test('parses triple negative integer', () => {
+			checkParseWithSpacing([-5, -10, -4], [-5, -10, 1]);
+		});
+		test('parses triple decimal', () => {
+			checkParseWithSpacing([1.2, 0.2, 0.5], [1.2, 0.2, 1]);
+		});
+		test('parses triple negative decimal', () => {
+			checkParseWithSpacing([-1.2, -0.2, -0.5], [-1.2, -0.2, 1]);
+		});
+		test('refuses invalid inputs', () => {
+			[
+				//
+				Math.PI,
+				Infinity,
+				NaN,
+				1235,
+				// although we strip out non numbers, we need at least 1 number for the start value
+				'a',
+				'',
+				' '
+			].forEach((vals) => {
+				checkParseRangeThrows(vals);
+			});
+		});
+		test('ignores extraneous inputs', () => {
+			[
+				// we strip non-numbers, and only use the first 3 numbers we find
+				'1a',
+				'1 a',
+				'1 a b',
+				'1 1 a',
+				'1a 1 1',
+				'1 1a 1',
+				'1 1 1a',
+				'1 1 1 1',
+				'a 1 1 1 a',
+				`1\t1\t1`,
+				`1\n1\n1`,
+				'1:1:1',
+				'1,1,1',
+				'a 1,1,1 a'
+			].forEach((vals) => {
+				assert.doesNotThrow(() => {
+					parseRange(vals);
+				});
+			});
+			assert.deepStrictEqual(parseRange('2a'), [2, 1, 1]);
+			assert.deepStrictEqual(parseRange('2a 3b'), [2, 3, 1]);
+			assert.deepStrictEqual(parseRange('1a 2 3 4 5'), [1, 2, 3]);
+			assert.deepStrictEqual(parseRange('1 2a 3 4 5'), [1, 2, 3]);
+			assert.deepStrictEqual(parseRange('1 2 3a 4 5'), [1, 2, 3]);
+		});
+	});
+	suite('createRangeFactory', () => {
+		test('outputs a range starting at 0', () => {
+			createAndCheckRange(0, 1, 1, ['0', '1', '2', '3']);
+		});
+		test('outputs a range starting at 1', () => {
+			createAndCheckRange(1, 1, 1, ['1', '2', '3']);
+		});
+		test('outputs a range starting at -5', () => {
+			createAndCheckRange(-5, 1, 1, ['-5', '-4', '-3']);
+		});
+		test('outputs a range of decimals', () => {
+			const range = createAndCheckRange(1.2, 0.2, 1, ['1.2', '1.4', '1.6', '1.8', '2.0', '2.2']);
+			const pattern = /^\d+\.\d+$/;
+			// every value has a decimal point
+			range.forEach((v) => {
+				assert.strictEqual(pattern.test(v), true);
+			});
+		});
+		test('can decrement a range', () => {
+			createAndCheckRange(10, -2, 1, ['10', '8', '6']);
+		});
+		test('can decrement decimals into negative', () => {
+			createAndCheckRange(0.6, -0.3, 1, ['0.6', '0.3', '0.0', '-0.3', '-0.6', '-0.9']);
+		});
+		test('pads numbers', () => {
+			createAndCheckRange(10, 5, 4, ['0010', '0015', '0020', '0025', '0030']);
+		});
+		test('pads negative numbers', () => {
+			createAndCheckRange(-10, -5, 4, ['-010', '-015', '-020', '-025', '-030']);
+		});
+		test('pads decimals', () => {
+			createAndCheckRange(2, -0.4, 5, ['2.000', '1.600', '1.200', '0.800', '0.400']);
+		});
+		test('pads negative decimals', () => {
+			createAndCheckRange(1, -0.5, 8, ['1.000000', '0.500000', '0.000000', '-0.50000', '-1.00000', '-1.50000']);
+		});
+		test('pads negative and positive numbers', () => {
+			createAndCheckRange(-10, 5, 4, ['-010', '-005', '0000', '0005', '0010', '0015']);
 		});
 	});
 });
