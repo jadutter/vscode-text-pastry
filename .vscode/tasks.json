@@ -8,13 +8,10 @@
 
 // A task runner that calls a custom npm script that compiles the extension.
 {
-    "version": "2.0.0",
-
-    // we want to run npm
-    "command": "npm",
-
     // we run the custom script "compile" as defined in package.json
     "args": ["run", "compile", "--loglevel", "silent"],
+    // we want to run npm
+    "command": "npm",
 
     // The tsc compiler is started in watching mode
     "isBackground": true,
@@ -23,18 +20,14 @@
     "problemMatcher": "$tsc-watch",
     "tasks": [
         {
-            "label": "npm",
-            "type": "shell",
+            "args": ["run", "compile", "--loglevel", "silent"],
             "command": "npm",
-            "args": [
-                "run",
-                "compile",
-                "--loglevel",
-                "silent"
-            ],
+            "group": "build",
             "isBackground": true,
+            "label": "npm",
             "problemMatcher": "$tsc-watch",
-            "group": "build"
+            "type": "shell"
         }
-    ]
+    ],
+    "version": "2.0.0"
 }

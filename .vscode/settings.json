@@ -1,18 +1,21 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-	"files.exclude": {
-		"out": false // set this to true to hide the "out" folder with the compiled JS files
-	},
-	"search.exclude": {
-		"out": true // set this to false to include "out" folder in search results
-	},
-	"typescript.tsdk": "./node_modules/typescript/lib", // we want to use the TS server from our node_modules folder to control its version
-	"editor.useTabStops": true,
-	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"[json]": {
-		"editor.useTabStops": false,
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"prettier.configPath": ".prettierrc.json"
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.useTabStops": false
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.useTabStops": true,
+    "files.associations": {
+        "launch.json": "jsonc"
+    },
+    "files.exclude": {
+        "out": false // set this to true to hide the "out" folder with the compiled JS files
+    },
+    "prettier.configPath": ".prettierrc.json",
+    "search.exclude": {
+        "out": true // set this to false to include "out" folder in search results
+    },
+    "typescript.tsdk": "./node_modules/typescript/lib" // we want to use the TS server from our node_modules folder to control its version
 }

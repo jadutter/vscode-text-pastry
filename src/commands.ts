@@ -1,43 +1,43 @@
-import { getClipboardLines } from './utils';
-import * as rangeMethods from './rangeMethods';
-import type { TextPastryCommand } from './main';
 import { handleRange, handleRangeN, promptRange, promptRangeN, promptWordList } from './editorMethods';
+import type { TextPastryCommand } from './main';
+import * as rangeMethods from './rangeMethods';
+import { getClipboardLines } from './utils';
 
-export const textPastry1toX: TextPastryCommand = () => handleRange(rangeMethods.range_1toX);
-export const textPastry0toX: TextPastryCommand = () => handleRange(rangeMethods.range_0toX);
-export const textPastryAtoX: TextPastryCommand = () => handleRange(rangeMethods.range_AtoX);
+export const textPastry1toX: TextPastryCommand = () => handleRange(rangeMethods.range1toX);
+export const textPastry0toX: TextPastryCommand = () => handleRange(rangeMethods.range0toX);
+export const textPastryAtoX: TextPastryCommand = () => handleRange(rangeMethods.rangeAtoX);
 
 export const textPastryRange: TextPastryCommand = async () => {
-	try {
-		const range = await promptRange();
-		return handleRange(rangeMethods.range_generic(range));
-	} catch (e) {
-		// Swallow errors
-	}
+    try {
+        const range = await promptRange();
+        return handleRange(rangeMethods.rangeGeneric(range));
+    } catch {
+        // Swallow errors
+    }
 };
 
 export const textPastryWordList: TextPastryCommand = async () => {
-	try {
-		const list = await promptWordList();
-		return handleRange(list);
-	} catch (e) {
-		// Swallow errors
-	}
+    try {
+        const list = await promptWordList();
+        return handleRange(list);
+    } catch {
+        // Swallow errors
+    }
 };
 
 export const textPastryPaste = () =>
-	getClipboardLines().then((lines) => {
-		return handleRange(lines);
-	});
+    getClipboardLines().then((lines) => {
+        return handleRange(lines);
+    });
 
-export const textPastryUuid: TextPastryCommand = () => handleRange(rangeMethods.range_uuid);
+export const textPastryUuid: TextPastryCommand = () => handleRange(rangeMethods.rangeUuid);
 
 export const textPastryRangeN: TextPastryCommand = async () => {
-	try {
-		const [start, step, padding] = await promptRangeN();
-		const list = rangeMethods.createRangeFactory(start, step, padding);
-		return handleRangeN(list);
-	} catch {
-		// Swallow errors
-	}
+    try {
+        const [start, step, padding] = await promptRangeN();
+        const list = rangeMethods.createRangeFactory(start, step, padding);
+        return handleRangeN(list);
+    } catch {
+        // Swallow errors
+    }
 };

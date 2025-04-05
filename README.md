@@ -4,8 +4,7 @@ Text Pastry lets you reduce repetitive work and use multiple cursors more effect
 
 This extension is based on the [Text Pastry extension for Sublime Text](https://github.com/duydao/Text-Pastry). From their readme:
 
-> If you're familiar with multiple selections, it's pretty straight forward. Place multiple cursors by using [alt+click], open the Command Palette and select Text Pastry From 1 to X. That's it! We've just pasted incrementing numbers.
-
+> If you're familiar with multiple selections, it's pretty straight forward. Place multiple cursors by using `alt+click`, open the Command Palette and select Text Pastry From 1 to X. That's it! We've just pasted incrementing numbers.
 
 ## Features
 
@@ -18,16 +17,21 @@ This project is very barebones at the moment. There are a few basic feature issu
 ## Release Notes
 
 ### 1.3.1
+
 Bugfix: when cancelling out of "Word List" or "Range", don't throw an error
 
 ### 1.3.0
+
 Add "Word List" feature
 
 ### 1.2.0
+
 Add "Paste Lines" feature
 
 ### 1.1.0
+
 Add UUID, A-X range, generic range features
 
 ### 1.0.0
+
 Initial release of Text Pastry for VS Code

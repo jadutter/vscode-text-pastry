@@ -1,104 +1,113 @@
 {
-  "name": "vscode-text-pastry",
-  "displayName": "Text Pastry",
-  "description": "Extend the power of multiple selections in VS Code. Modify selections, insert numeric sequences, incremental numbers, generate uuids, date ranges, insert continuously from a word list and more.",
-  "version": "1.3.1",
-  "publisher": "jkjustjoshing",
-  "engines": {
-    "vscode": "^1.51.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jkjustjoshing/vscode-text-pastry"
-  },
-  "bugs": {
-    "url": "https://github.com/jkjustjoshing/vscode-text-pastry/issues",
-    "email": "josh@kramer.run"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onCommand:extension.textPastry.1toX",
-    "onCommand:extension.textPastry.0toX",
-    "onCommand:extension.textPastry.AtoX",
-    "onCommand:extension.textPastry.range",
-    "onCommand:extension.textPastry.rangeN",
-    "onCommand:extension.textPastry.paste",
-    "onCommand:extension.textPastry.uuid",
-    "onCommand:extension.textPastry.wordList"
-  ],
-  "main": "./out/main.js",
-  "browser": "./out/browser.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "extension.textPastry.1toX",
-        "title": "Text Pastry: 1 to X"
-      },
-      {
-        "command": "extension.textPastry.0toX",
-        "title": "Text Pastry: 0 to X"
-      },
-      {
-        "command": "extension.textPastry.AtoX",
-        "title": "Text Pastry: A to X"
-      },
-      {
-        "command": "extension.textPastry.range",
-        "title": "Text Pastry: Range"
-      },
-      {
-        "command": "extension.textPastry.rangeN",
-        "title": "Text Pastry: Range Steps"
-      },
-      {
-        "command": "extension.textPastry.paste",
-        "title": "Text Pastry: Paste Lines"
-      },
-      {
-        "command": "extension.textPastry.uuid",
-        "title": "Text Pastry: uuid"
-      },
-      {
-        "command": "extension.textPastry.wordList",
-        "title": "Text Pastry: Word List"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run esbuild-base -- --minify && npm run esbuild-browser -- --minify",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
-    "esbuild-browser": "esbuild ./src/extension.ts --bundle --outfile=out/browser.js --external:vscode --format=cjs --platform=browser",
-    "esbuild": "npm run esbuild-base -- --sourcemap",
-    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
-    "lint": "eslint . ",
-    "test-compile": "tsc -p ./",
-    "test-only": "mocha -u tdd --reporter spec  out/test/*.test.js",
-    "test-watch": "npm run test-compile -- --watch & npm run test-only -- --watch",
-    "test": "npm run test-compile && npm run test-only"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.24.0",
-    "@types/lodash.padend": "^4.6.9",
-    "@types/lodash.padstart": "^4.6.9",
-    "@types/lodash.sortby": "^4.7.9",
-    "@types/mocha": "^2.2.48",
-    "@types/node": "^6.14.13",
-    "@types/uuid": "^2.0.32",
-    "esbuild": "^0.15.11",
-    "eslint": "^9.24.0",
-    "globals": "^16.0.0",
-    "mocha": "^10.0.0",
-    "prettier": "2.7.1",
-    "typescript": "^4.8.4",
-    "typescript-eslint": "^8.29.0",
-    "vscode": "^1.1.37"
-  },
-  "dependencies": {
-    "lodash.padend": "^4.6.1",
-    "lodash.padstart": "^4.6.1",
-    "lodash.sortby": "^4.7.0",
-    "uuid": "^9.0.0"
-  }
+    "name": "vscode-text-pastry",
+    "displayName": "Text Pastry",
+    "description": "Extend the power of multiple selections in VS Code. Modify selections, insert numeric sequences, incremental numbers, generate uuids, date ranges, insert continuously from a word list and more.",
+    "version": "1.3.1",
+    "publisher": "jkjustjoshing",
+    "engines": {
+        "vscode": "^1.51.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jkjustjoshing/vscode-text-pastry"
+    },
+    "bugs": {
+        "url": "https://github.com/jkjustjoshing/vscode-text-pastry/issues",
+        "email": "josh@kramer.run"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.textPastry.1toX",
+        "onCommand:extension.textPastry.0toX",
+        "onCommand:extension.textPastry.AtoX",
+        "onCommand:extension.textPastry.range",
+        "onCommand:extension.textPastry.rangeN",
+        "onCommand:extension.textPastry.paste",
+        "onCommand:extension.textPastry.uuid",
+        "onCommand:extension.textPastry.wordList"
+    ],
+    "main": "./out/main.js",
+    "browser": "./out/browser.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.textPastry.1toX",
+                "title": "Text Pastry: 1 to X"
+            },
+            {
+                "command": "extension.textPastry.0toX",
+                "title": "Text Pastry: 0 to X"
+            },
+            {
+                "command": "extension.textPastry.AtoX",
+                "title": "Text Pastry: A to X"
+            },
+            {
+                "command": "extension.textPastry.range",
+                "title": "Text Pastry: Range"
+            },
+            {
+                "command": "extension.textPastry.rangeN",
+                "title": "Text Pastry: Range Steps"
+            },
+            {
+                "command": "extension.textPastry.paste",
+                "title": "Text Pastry: Paste Lines"
+            },
+            {
+                "command": "extension.textPastry.uuid",
+                "title": "Text Pastry: uuid"
+            },
+            {
+                "command": "extension.textPastry.wordList",
+                "title": "Text Pastry: Word List"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run esbuild-base -- --minify && npm run esbuild-browser -- --minify",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+        "esbuild-browser": "esbuild ./src/extension.ts --bundle --outfile=out/browser.js --external:vscode --format=cjs --platform=browser",
+        "esbuild": "npm run esbuild-base -- --sourcemap",
+        "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+        "lint": "eslint . && tslint --project .",
+        "lint:fix": "eslint . --fix && tslint --project . --fix",
+        "test-compile": "tsc -p ./",
+        "test-only": "mocha -u tdd --reporter spec  out/test/*.test.js",
+        "test-watch": "npm run test-compile -- --watch & npm run test-only -- --watch",
+        "test": "npm run test-compile && npm run test-only"
+    },
+    "devDependencies": {
+        "@eslint/config-inspector": "^1.0.2",
+        "@eslint/js": "^9.24.0",
+        "@eslint/json": "^0.11.0",
+        "@eslint/markdown": "^6.3.0",
+        "@types/lodash.padend": "^4.6.9",
+        "@types/lodash.padstart": "^4.6.9",
+        "@types/lodash.sortby": "^4.7.9",
+        "@types/mocha": "^2.2.48",
+        "@types/node": "^6.14.13",
+        "@types/uuid": "^2.0.32",
+        "@typescript-eslint/eslint-plugin-tslint": "^7.0.2",
+        "esbuild": "^0.25.2",
+        "eslint": "^9.24.0",
+        "eslint-plugin-etc": "^2.0.3",
+        "eslint-plugin-jsonc": "^2.20.0",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
+        "globals": "^16.0.0",
+        "mocha": "^10.0.0",
+        "prettier": "2.7.1",
+        "tslint": "^5.20.1",
+        "typescript": "^4.8.4",
+        "typescript-eslint": "^8.29.0",
+        "vscode": "^1.1.37"
+    },
+    "dependencies": {
+        "lodash.padend": "^4.6.1",
+        "lodash.padstart": "^4.6.1",
+        "lodash.sortby": "^4.7.0",
+        "uuid": "^9.0.0"
+    }
 }
